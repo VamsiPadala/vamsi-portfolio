@@ -2,7 +2,7 @@ export const portfolioData = {
   personal: {
     name: "Vamsi",
     title: "Full Stack Developer",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
+    image: "https://res.cloudinary.com/kits/image/upload/v1780117947/image_mine_bftbsj.jpg",
     email: "padalavamsi@zohomail.in",
     social: {
       linkedin: "https://www.linkedin.com/in/padalavamsi/",
@@ -35,6 +35,19 @@ export const portfolioData = {
   },
   experience: [
     {
+      role: "Associate Developer",
+      company: "Mindwhile IT Solutions",
+      type: "Full-Time",
+      duration: "Feb 2026 - Present",
+      description: "Working as an Associate Developer contributing to enterprise web applications and system solutions.",
+      responsibilities: [
+        "Developing and maintaining scalable web applications",
+        "Collaborating with cross-functional teams to deliver software solutions",
+        "Optimizing application performance and user experience"
+      ],
+      technologies: ["React", "Node.js", "JavaScript", "SQL"]
+    },
+    {
       role: "Full Stack Developer",
       company: "AB DIGITALS",
       type: "Part-Time",
@@ -48,20 +61,46 @@ export const portfolioData = {
       technologies: ["React", "Node.js", "MongoDB", "Express.js"]
     },
     {
-      role: "Freelancer",
+      role: "Freelance Application Developer",
       company: "Self-Employed",
       type: "Freelance",
-      duration: "Jun 2023 - Dec 2023",
-      description: "Worked on multiple web application projects for various clients.",
+      duration: "Jun 2023 - Present",
+      description: "Developed and actively maintain multiple public-facing production applications.",
       responsibilities: [
-        "Delivered 5+ projects including e-commerce and booking platforms",
-        "Managed client communications and project timelines",
-        "Implemented modern UI designs with React and Bootstrap"
+        "Architected and deployed enterprise solutions like School ERP and Books Management systems",
+        "Developed Jago App, a real-time bike taxi platform handling live tracking and bookings",
+        "Built and currently maintain consultancy platforms for SR Education and Akshaya Educ",
+        "Ensuring high availability, performing regular updates, and managing public user scale"
       ],
-      technologies: ["React", "Python", "MySQL", "Bootstrap"]
+      technologies: ["React", "React Native", "Node.js", "MongoDB", "Express.js", "WebSockets"]
     }
   ],
   projects: [
+    {
+      title: "School ERP System",
+      description: "A comprehensive Enterprise Resource Planning system built specifically for school administration, student management, and academic tracking.",
+      thumbnail: "https://res.cloudinary.com/kits/image/upload/v1780123593/Screenshot_2026-05-30_121601_by18d5.png"
+    },
+    {
+      title: "Jago App (Bike Taxi)",
+      description: "A real-time ride-hailing application similar to Rapido, featuring live driver tracking, instant booking, and secure payment processing.",
+      thumbnail: "https://res.cloudinary.com/kits/image/upload/v1780123624/jago_screen2_mlqhyx.png"
+    },
+    {
+      title: "Books Management App",
+      description: "A digital library and inventory management system for tracking book collections, issuing books, and managing user records seamlessly.",
+      thumbnail: "https://res.cloudinary.com/kits/image/upload/v1780123772/Screenshot_2026-05-30_121920_thboid.png"
+    },
+    {
+      title: "SR Education App",
+      description: "A specialized consultancy application designed for SR Education to manage student admissions, counseling sessions, and visa processing.",
+      thumbnail: "https://res.cloudinary.com/kits/image/upload/v1780123656/Screenshot_2026-05-30_121727_yzz8w6.png"
+    },
+    {
+      title: "Akshaya Educ Platform",
+      description: "An educational consultancy platform built for Akshaya Educ to streamline student enrollments and provide real-time updates.",
+      thumbnail: "https://res.cloudinary.com/kits/image/upload/v1780123682/Screenshot_2026-05-30_121751_sv2zrj.png"
+    },
     {
       title: "Woodworks Online Booking",
       description: "A comprehensive booking platform for woodwork services with real-time availability.",

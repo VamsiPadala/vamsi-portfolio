@@ -1,22 +1,130 @@
-/* Smooth scrolling */
+/* ============================================================
+   GLOBAL STYLES — Portfolio v3
+   Clean slate: no rounded-card overrides, no section gaps
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-    width: 10px;
+body {
+  margin: 0;
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
-::-webkit-scrollbar-track {
-    background: hsl(var(--background));
+/* Hide scrollbar but keep scroll */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #ff5722; border-radius: 2px; }
+
+/* Page transition */
+.page-enter { opacity: 0; transform: translateY(16px); }
+.page-enter-active { opacity: 1; transform: translateY(0); transition: all 0.4s ease; }
+
+/* Utility: noise grain overlay on hero */
+.grain::before {
+  content: '';
+  position: fixed;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 0;
 }
 
-::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #3b82f6, #14b8a6);
-    border-radius: 5px;
+/* Glow blobs */
+.glow-orange {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,87,34,0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+.glow-amber {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(251,146,60,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.glow-purple {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139,92,246,0.08) 0%, transparent 70%);
+  pointer-events: none;
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #2563eb, #0d9488);
+/* Animated pulse */
+@keyframes pulse-slow { 0%,100% { opacity:0.6; transform: scale(1); } 50% { opacity:1; transform: scale(1.08); } }
+.animate-pulse-slow { animation: pulse-slow 4s ease-in-out infinite; }
+
+/* Shimmer effect on skill bars */
+@keyframes shimmer { from { background-position: -200% center; } to { background-position: 200% center; } }
+.shimmer-bar {
+  background: linear-gradient(90deg, #ff5722 0%, #ffab76 50%, #ff5722 100%);
+  background-size: 200% auto;
+  animation: shimmer 2s linear infinite;
+}
+
+/* Card hover glow */
+.card-hover {
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.card-hover:hover {
+  border-color: rgba(255,87,34,0.35);
+  box-shadow: 0 8px 40px rgba(255,87,34,0.12);
+  transform: translateY(-3px);
+}
+
+/* Tag chip */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  background: rgba(255,87,34,0.1);
+  border: 1px solid rgba(255,87,34,0.25);
+  border-radius: 3px;
+  color: #ff8a50;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Section badge */
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(255,87,34,0.1);
+  border: 1px solid rgba(255,87,34,0.2);
+  border-radius: 20px;
+  color: #ff8a50;
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.section-badge::before {
+  content: '';
+  display: inline-block;
+  width: 6px; height: 6px;
+  background: #ff5722;
+  border-radius: 50%;
+  animation: pulse-slow 2s ease-in-out infinite;
+}
+
+/* Divider */
+.divider {
+  width: 48px; height: 3px;
+  background: linear-gradient(90deg, #ff5722, #ff8a50);
+  border-radius: 2px;
+  margin-bottom: 16px;
 }

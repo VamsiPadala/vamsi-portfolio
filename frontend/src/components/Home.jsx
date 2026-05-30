@@ -1,183 +1,190 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Linkedin, Github, Mail, Instagram, MessageCircle, Download } from 'lucide-react';
-import { Button } from './ui/button';
+import React, { useState, useEffect } from 'react';
+import { Linkedin, Github, Mail, Instagram, MessageCircle, Download, ExternalLink } from 'lucide-react';
 import { portfolioData } from '../mock';
+import { motion } from 'framer-motion';
 
 const Home = () => {
   const { personal } = portfolioData;
 
   const socialLinks = [
-    { icon: Linkedin, label: 'LinkedIn', url: personal.social.linkedin, color: 'hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/30' },
-    { icon: Github, label: 'GitHub', url: personal.social.github, color: 'hover:text-gray-800 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800' },
-    { icon: Mail, label: 'Email', url: `mailto:${personal.email}`, color: 'hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30' },
-    { icon: Instagram, label: 'Instagram', url: personal.social.instagram, color: 'hover:text-pink-600 hover:bg-pink-50 dark:hover:bg-pink-950/30' },
-    { icon: MessageCircle, label: 'WhatsApp', url: personal.social.whatsapp, color: 'hover:text-green-600 hover:bg-green-50 dark:hover:bg-green-950/30' }
+    { icon: Linkedin, label: 'LinkedIn', url: personal.social.linkedin },
+    { icon: Github, label: 'GitHub', url: personal.social.github },
+    { icon: Mail, label: 'Email', url: `mailto:${personal.email}` },
+    { icon: Instagram, label: 'Instagram', url: personal.social.instagram },
+    { icon: MessageCircle, label: 'WhatsApp', url: personal.social.whatsapp },
   ];
 
   const handleResumeDownload = () => {
-    const resumeUrl = 'https://drive.google.com/file/d/12R0rj7TxAyR6w_rCy7R9ltDgzitS2bJ_/view?usp=drive_link';
-    window.open(resumeUrl, '_blank', 'noopener,noreferrer');
+    window.open('https://drive.google.com/file/d/12R0rj7TxAyR6w_rCy7R9ltDgzitS2bJ_/view?usp=drive_link', '_blank', 'noopener,noreferrer');
+  };
+
+  const scrollToAbout = () => {
+    const el = document.getElementById('about');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   return (
-    <section id="home" className="min-h-screen flex items-center pt-20 bg-gradient-to-br from-blue-50/50 via-white to-teal-50/50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
-      <div className="container mx-auto px-4">
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-center">
-          {/* On mobile, show image first by using order classes */}
-          <div className="flex justify-center animate-float order-1 md:order-2">
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-teal-600 rounded-full blur-3xl opacity-20 animate-pulse"></div>
-              <img
-                src="https://res.cloudinary.com/kits/image/upload/v1760206045/Generated_Image_September_01_2025_-_12_35AM_l7zky2.jpg"
-                alt={personal.name}
-                className="relative rounded-full w-64 h-64 md:w-80 md:h-80 object-cover border-8 border-white dark:border-gray-800 shadow-2xl"
-              />
-            </div>
-          </div>
-          <div className="space-y-6 animate-fade-in order-2 md:order-1 md:ml-12 lg:ml-20 xl:ml-32">
-            <div className="space-y-2">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold">
-                Hi, I'm <span className="bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">{personal.name}</span>
-              </h1>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-foreground/80">
-                I'm a <span className="text-blue-600">{personal.title}</span>
-              </h2>
-            </div>
+    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-background">
+      {/* Dynamic Background Glowing Orbs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] rounded-full bg-primary/20 blur-[120px] mix-blend-screen" />
+        <div className="absolute top-[20%] -right-[10%] w-[50%] h-[50%] rounded-full bg-blue-600/20 blur-[150px] mix-blend-screen" />
+        <div className="absolute -bottom-[20%] left-[20%] w-[60%] h-[60%] rounded-full bg-purple-600/15 blur-[150px] mix-blend-screen" />
+        
+        {/* Subtle grid pattern overlay */}
+        <div 
+          className="absolute inset-0 opacity-[0.02] dark:opacity-[0.05]" 
+          style={{ 
+            backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.5) 1px, transparent 1px)',
+            backgroundSize: '40px 40px' 
+          }}
+        />
+      </div>
 
-            {/* Typewriter animated word: only the last word changes */}
-            <p className="text-base md:text-lg text-foreground/70 max-w-xl">
-              Crafting elegant solutions to complex problems with clean code and creative{' '}
-              <Typewriter
-                words={["thinking", "developing", "deploying"]}
-                color="#8006d6"
-                className="inline-block"
-              />
-              .
+      <div className="container mx-auto px-6 relative z-10 pt-20 pb-12">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8">
+          
+          {/* Left Text Content */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="flex-1 max-w-2xl text-center lg:text-left"
+          >
+            {/* Intro Badge */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel mb-6"
+            >
+              <span className="text-sm font-medium text-foreground/80">Hello, I'm Vamsi</span>
+              <span className="animate-[wave_2.5s_infinite] inline-block origin-[70%_70%]">👋</span>
+            </motion.div>
+
+            {/* Main Heading */}
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-foreground mb-6 leading-[1.1]">
+              I Design & Build <br className="hidden lg:block" />
+              <span className="text-gradient">Digital Experiences</span>
+            </h1>
+
+            {/* Subtitle */}
+            <p className="text-lg md:text-xl text-muted-foreground font-light mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+              A passionate Full Stack Developer & UI/UX Designer crafting beautiful, functional, and user-centered digital products.
             </p>
 
-            <div className="flex flex-wrap gap-3">
-              {socialLinks.map((link, index) => (
-                <Button
-                  key={index}
-                  variant="outline"
-                  size="icon"
-                  className={`rounded-full transition-all duration-300 h-12 w-12 ${link.color}`}
-                  onClick={() => window.open(link.url, '_blank')}
-                  title={link.label}
-                >
-                  <link.icon className="h-5 w-5" />
-                </Button>
-              ))}
+            {/* CTA Buttons */}
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-5 mb-12">
+              <button
+                onClick={scrollToAbout}
+                className="group flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-medium py-3.5 px-8 rounded-lg transition-all duration-300 shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:shadow-[0_0_30px_rgba(168,85,247,0.5)] hover:-translate-y-1"
+              >
+                View My Work
+                <ExternalLink className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+              </button>
+              
+              <button
+                onClick={handleResumeDownload}
+                className="group flex items-center justify-center gap-2 bg-transparent border border-border hover:bg-white/5 text-foreground font-medium py-3.5 px-8 rounded-lg transition-all duration-300 hover:-translate-y-1"
+              >
+                Download CV
+                <Download className="h-4 w-4 transition-transform group-hover:translate-y-1" />
+              </button>
             </div>
 
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white w-full md:w-auto"
-              onClick={handleResumeDownload}
-            >
-              <Download className="h-5 w-5 mr-2" />
-              View Resume
-            </Button>
-          </div>
+            {/* Social Links */}
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+              <span className="text-sm text-muted-foreground font-medium uppercase tracking-wider">Let's connect</span>
+              <div className="hidden sm:block w-8 h-[1px] bg-border" />
+              <div className="flex items-center gap-3">
+                {socialLinks.map((link, index) => (
+                  <motion.button
+                    key={index}
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => window.open(link.url, '_blank')}
+                    title={link.label}
+                    className="w-10 h-10 flex items-center justify-center rounded-full bg-surface border border-border text-muted-foreground hover:text-primary hover:border-primary/50 transition-colors shadow-sm"
+                  >
+                    <link.icon className="h-4 w-4" />
+                  </motion.button>
+                ))}
+              </div>
+            </div>
+          </motion.div>
 
+          {/* Right Image / 3D Composition */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="flex-1 relative w-full max-w-lg mt-8 lg:mt-0"
+          >
+            {/* Outer Orbit Rings */}
+            <div className="absolute inset-0 border border-primary/20 rounded-full scale-110 opacity-50 animate-[spin_60s_linear_infinite]" />
+            <div className="absolute inset-0 border border-blue-500/20 rounded-full scale-125 opacity-30 animate-[spin_40s_linear_infinite_reverse]" />
+
+            {/* Floating Badge 1 - Top Left */}
+            <motion.div 
+              animate={{ y: [0, -10, 0] }}
+              transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+              className="absolute -top-4 -left-4 md:-top-2 md:-left-8 z-20 glass-panel px-4 py-2.5 rounded-xl flex items-center gap-3 shadow-xl"
+            >
+              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.8)]" />
+              <span className="text-xs md:text-sm font-medium whitespace-nowrap text-foreground/90">Available for<br/>freelance work</span>
+            </motion.div>
+
+            {/* Floating Badge 2 - Bottom Right */}
+            <motion.div 
+              animate={{ y: [0, 10, 0] }}
+              transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 1 }}
+              className="absolute -bottom-8 -right-4 md:-bottom-2 md:-right-8 z-20 glass-panel p-4 rounded-xl flex items-center gap-4 shadow-xl"
+            >
+              <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center border border-primary/30">
+                <span className="text-lg font-bold text-primary">3+</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-sm font-bold text-foreground">Years</span>
+                <span className="text-xs text-muted-foreground">Experience</span>
+              </div>
+            </motion.div>
+
+            {/* Main Image Container */}
+            <div className="relative z-10 w-64 h-64 md:w-80 md:h-80 mx-auto rounded-full overflow-hidden p-1 bg-gradient-to-tr from-primary via-blue-500 to-purple-600 shadow-[0_0_50px_rgba(168,85,247,0.3)]">
+              <div className="w-full h-full bg-surface rounded-full overflow-hidden relative">
+                {/* Subtle Inner Glow */}
+                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent z-10 pointer-events-none" />
+                
+                <img
+                  src="https://res.cloudinary.com/kits/image/upload/v1780117947/image_mine_bftbsj.jpg"
+                  alt="Vamsi Portrait"
+                  className="w-full h-full object-cover object-top relative z-0 transform hover:scale-110 transition-transform duration-700"
+                />
+              </div>
+            </div>
+            
+          </motion.div>
         </div>
       </div>
 
-      <style jsx>{`
-        @keyframes fade-in {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        @keyframes float {
-          0%, 100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-20px);
-          }
-        }
-        .animate-fade-in {
-          animation: fade-in 1s ease-out;
-        }
-        .animate-float {
-          animation: float 3s ease-in-out infinite;
-        }
-      `}</style>
+      {/* Scroll indicator */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5, duration: 1 }}
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+      >
+        <div className="w-6 h-10 rounded-full border-2 border-muted-foreground/30 flex justify-center p-1">
+          <motion.div 
+            animate={{ y: [0, 12, 0] }}
+            transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+            className="w-1 h-1.5 rounded-full bg-primary"
+          />
+        </div>
+        <span className="text-muted-foreground text-[10px] uppercase tracking-widest font-semibold">Scroll Down</span>
+      </motion.div>
     </section>
   );
 };
-
-/*
-  Typewriter component
-  - words: array of words to cycle
-  - color: text color for the animated word
-  - typingSpeed / pauseDurations are tuned for a pleasant effect
-  - no cursor, left-to-right typing
-  - fixed width based on the longest word (prevents layout shift)
-*/
-function Typewriter({ words = [], color = '#312963', className = '' }) {
-  const [wordIndex, setWordIndex] = useState(0);
-  const [display, setDisplay] = useState('');
-  const [isDeleting] = useState(false); // we don't delete, we replace after pause
-  const mounted = useRef(true);
-
-  // Determine fixed width in ch units from longest word to prevent layout shift
-  const longest = words.reduce((a, b) => (a.length > b.length ? a : b), '');
-  const fixedWidthStyle = { minWidth: `${longest.length}ch` };
-
-  useEffect(() => {
-    mounted.current = true;
-    const typingSpeed = 80; // ms per character
-    const pauseAfterTyping = 900; // pause when a word finishes
-    const pauseBetweenWords = 250; // small pause before next word starts
-
-    let charIndex = 0;
-    let timeoutId;
-
-    function typeCurrentWord() {
-      const current = words[wordIndex];
-      if (!mounted.current) return;
-
-      if (charIndex <= current.length) {
-        setDisplay(current.slice(0, charIndex));
-        charIndex += 1;
-        timeoutId = setTimeout(typeCurrentWord, typingSpeed);
-      } else {
-        // completed typing this word; pause then move to next
-        timeoutId = setTimeout(() => {
-          // advance index and start next word after brief pause
-          setWordIndex((i) => (i + 1) % words.length);
-        }, pauseAfterTyping);
-      }
-    }
-
-    // Start typing after small pause to make loop readable
-    timeoutId = setTimeout(() => {
-      charIndex = 0;
-      typeCurrentWord();
-    }, pauseBetweenWords);
-
-    return () => {
-      mounted.current = false;
-      clearTimeout(timeoutId);
-    };
-  }, [wordIndex, words]);
-
-  return (
-    <span
-      className={className}
-      style={{ color, ...fixedWidthStyle }}
-      aria-hidden={false}
-    >
-      {display}
-    </span>
-  );
-}
 
 export default Home;
